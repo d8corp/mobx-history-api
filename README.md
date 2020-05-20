@@ -1,6 +1,5 @@
 # mobx-history-api
 [![NPM](https://img.shields.io/npm/v/mobx-history-api.svg)](https://www.npmjs.com/package/mobx-history-api)
-![minzipped size](https://img.shields.io/bundlephobia/minzip/mobx-history-api)
 ![downloads](https://img.shields.io/npm/dm/mobx-history-api.svg)
 ![license](https://img.shields.io/npm/l/mobx-history-api)  
 Browser History API with [Mobx](https://mobx.js.org/README.html) 3 and more.
@@ -197,8 +196,8 @@ history.push('/test')
 ### links
 - [react-mobx-routing](https://www.npmjs.com/package/react-mobx-routing) [![NPM](https://img.shields.io/npm/v/react-mobx-routing.svg)](https://www.npmjs.com/package/react-mobx-routing) for React projects. 
 ## Issues
-If you find a bug, please file an issue on [GitHub](https://github.com/d8corp/mobx-history-api/issues)  
-[![issues](https://img.shields.io/github/issues-raw/d8corp/mobx-history-api)](https://github.com/d8corp/mobx-history-api/issues)  
+> If you find a bug, please file an issue on [GitHub](https://github.com/d8corp/mobx-history-api/issues)  
+> [![issues](https://img.shields.io/github/issues-raw/d8corp/mobx-history-api)](https://github.com/d8corp/mobx-history-api/issues)  
 ---
 [![stars](https://img.shields.io/github/stars/d8corp/mobx-history-api?style=social)](https://github.com/d8corp/mobx-history-api/stargazers)
 [![watchers](https://img.shields.io/github/watchers/d8corp/mobx-history-api?style=social)](https://github.com/d8corp/mobx-history-api/watchers)
