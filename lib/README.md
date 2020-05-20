@@ -196,7 +196,8 @@ history.push('/test')
 ```
 ### links
 - [react-mobx-routing](https://www.npmjs.com/package/react-mobx-routing) [![NPM](https://img.shields.io/npm/v/react-mobx-routing.svg)](https://www.npmjs.com/package/react-mobx-routing) for React projects. 
-## Issues
+## Issues  
+
 If you find a bug, please file an issue on [GitHub](https://github.com/d8corp/mobx-history-api/issues)  
 [![issues](https://img.shields.io/github/issues-raw/d8corp/mobx-history-api)](https://github.com/d8corp/mobx-history-api/issues)  
 ---
