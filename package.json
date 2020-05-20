@@ -1,0 +1,49 @@
+{
+  "name": "mobx-history-api",
+  "version": "1.0.0",
+  "description": "Browser History API with Mobx",
+  "main": "index.js",
+  "module": "index.es6.js",
+  "private": true,
+  "scripts": {
+    "build": "bin/release -rollup",
+    "test": "jest src/index.test.ts",
+    "patch": "bin/release -patch -rollup",
+    "minor": "bin/release -minor -rollup",
+    "major": "bin/release -major -rollup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/d8corp/mobx-history-api.git"
+  },
+  "keywords": [
+    "history",
+    "History api",
+    "routing",
+    "router",
+    "route",
+    "react",
+    "mobx",
+    "url",
+    "front-end"
+  ],
+  "author": "Mikhail Lysikov <d8corp@mail.ru>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/d8corp/mobx-history-api/issues"
+  },
+  "homepage": "https://github.com/d8corp/mobx-history-api",
+  "devDependencies": {
+    "@types/jest": "^24.9.0",
+    "jest": "^25.1.0",
+    "rimraf": "^3.0.0",
+    "rollup": "^1.29.0",
+    "rollup-plugin-terser": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.25.3",
+    "ts-jest": "^25.2.0",
+    "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "mobx": "^3"
+  }
+}
