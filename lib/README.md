@@ -174,7 +174,7 @@ history.destructor()
 ```javascript
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
-import History from '@mazzard/mobx-history'
+import History from 'mobx-history-api'
 import {observer} from 'mobx-react'
 
 const history = new History()
@@ -195,11 +195,10 @@ history.push('/test')
 // now the root element contains '/test' 
 ```
 ### links
-- [react-mobx-routing](https://www.npmjs.com/package/react-mobx-routing) [![NPM](https://img.shields.io/npm/v/react-mobx-routing.svg)](https://www.npmjs.com/package/react-mobx-routing) for React projects. 
-## Issues  
-
-If you find a bug, please file an issue on [GitHub](https://github.com/d8corp/mobx-history-api/issues)  
-[![issues](https://img.shields.io/github/issues-raw/d8corp/mobx-history-api)](https://github.com/d8corp/mobx-history-api/issues)  
+- [react-mobx-routing](https://github.com/d8corp/react-mobx-routing) [![NPM](https://img.shields.io/npm/v/react-mobx-routing.svg)](https://www.npmjs.com/package/react-mobx-routing) for React projects. 
+## Issues
+> If you find a bug, please file an issue on [GitHub](https://github.com/d8corp/mobx-history-api/issues)  
+> [![issues](https://img.shields.io/github/issues-raw/d8corp/mobx-history-api)](https://github.com/d8corp/mobx-history-api/issues)  
 ---
 [![stars](https://img.shields.io/github/stars/d8corp/mobx-history-api?style=social)](https://github.com/d8corp/mobx-history-api/stargazers)
 [![watchers](https://img.shields.io/github/watchers/d8corp/mobx-history-api?style=social)](https://github.com/d8corp/mobx-history-api/watchers)
