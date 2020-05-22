@@ -1,5 +1,6 @@
 # mobx-history-api
 [![NPM](https://img.shields.io/npm/v/mobx-history-api.svg)](https://www.npmjs.com/package/mobx-history-api)
+![minzipped size](https://img.shields.io/bundlephobia/minzip/mobx-history-api)
 ![downloads](https://img.shields.io/npm/dm/mobx-history-api.svg)
 ![license](https://img.shields.io/npm/l/mobx-history-api)  
 Browser History API with [Mobx](https://mobx.js.org/README.html) 3 and more.
@@ -173,7 +174,7 @@ history.destructor()
 ```javascript
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
-import History from '@mazzard/mobx-history'
+import History from 'mobx-history-api'
 import {observer} from 'mobx-react'
 
 const history = new History()
