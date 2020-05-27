@@ -1,16 +1,16 @@
 import { IComputedValue } from 'mobx';
-export declare type Step = {
+declare type Step = {
     url: string;
     locale: string;
     position: number;
 };
-export declare type Steps = Step[];
-export declare type State = {
+declare type Steps = Step[];
+declare type State = {
     key: string;
     steps: Steps;
 };
-export declare type ScrollCallback = () => any | void;
-export default class History {
+declare type ScrollCallback = () => any | void;
+declare class History {
     constructor(key?: string);
     protected get defaultState(): State;
     protected readonly key: string;
@@ -42,3 +42,5 @@ export default class History {
     is(reg: string): boolean;
     get(reg: string, index?: number, defaultValue?: string): string;
 }
+export default History;
+export { Step, Steps, State, ScrollCallback };

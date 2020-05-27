@@ -1,13 +1,13 @@
 {
   "name": "mobx-history-api",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Browser History API with Mobx",
   "main": "index.js",
   "module": "index.es6.js",
   "private": true,
   "scripts": {
     "build": "bin/release -rollup",
-    "test": "jest src/index.test.ts",
+    "test": "jest",
     "patch": "bin/release -patch -rollup",
     "minor": "bin/release -minor -rollup",
     "major": "bin/release -major -rollup"
@@ -22,7 +22,6 @@
     "routing",
     "router",
     "route",
-    "react",
     "mobx",
     "url",
     "front-end"
@@ -39,11 +38,9 @@
     "jest": "^25.1.0",
     "rimraf": "^3.0.0",
     "rollup": "^1.29.0",
-    "rollup-plugin-terser": "^5.2.0",
     "rollup-plugin-typescript2": "^0.25.3",
     "ts-jest": "^25.2.0",
-    "typescript": "^3.7.5",
-    "minimist": ">=0.2.1"
+    "typescript": "^3.7.5"
   },
   "dependencies": {
     "mobx": "^3"
