@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "build": "bin/release -rollup",
-    "test": "jest src/index.test.ts",
+    "test": "jest",
     "patch": "bin/release -patch -rollup",
     "minor": "bin/release -minor -rollup",
     "major": "bin/release -major -rollup"
