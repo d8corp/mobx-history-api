@@ -344,7 +344,7 @@ describe('mobx-history', () => {
     expect(user.length).toEqual(2)
     expect(user[1]).toEqual('13')
   })
-  describe('location', () => {
+  describe('locale', () => {
     it('simple', () => {
       history.push('/user')
       expect(history.url).toBe('/user')
@@ -369,6 +369,15 @@ describe('mobx-history', () => {
 
       history.locale = 'ru'
       expect(count).toBe(1)
+    })
+    it('without slash', () => {
+      history.push('/')
+      history.locale = 'ru'
+      expect(location.pathname).toBe('/ru')
+      history.push('/test')
+      expect(location.pathname).toBe('/ru/test')
+      history.push('/')
+      expect(location.pathname).toBe('/ru')
     })
   })
 })

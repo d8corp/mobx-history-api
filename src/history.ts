@@ -58,7 +58,7 @@ export default class History {
           ...lastStep,
           locale
         }]
-      }, null, locale ? '/' + locale + url : url)
+      }, null, locale ? '/' + locale + (url === '/' ? '' : url) : url)
     })()
   }
 
@@ -134,7 +134,7 @@ export default class History {
           url,
           position: position > -1 ? position : top
         }]
-      } as State, null, locale ? '/' + locale + url : url)
+      } as State, null, locale ? '/' + locale + (url === '/' ? '' : url) : url)
       this.onChange(window.history.state)
     }
     if (scrollFirst) {
