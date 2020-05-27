@@ -41,8 +41,7 @@
     "rollup-plugin-terser": "^5.2.0",
     "rollup-plugin-typescript2": "^0.25.3",
     "ts-jest": "^25.2.0",
-    "typescript": "^3.7.5",
-    "minimist": ">=0.2.1"
+    "typescript": "^3.7.5"
   },
   "dependencies": {
     "mobx": "^3"
