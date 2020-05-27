@@ -57,7 +57,7 @@ history.locale = 'ru'
 history.url = '/test'
 location.pathname = '/ru/test'
 ```
-### movement ![string](https://img.shields.io/badge/-"forvard"-green) ![string](https://img.shields.io/badge/-"back"-green) ![string](https://img.shields.io/badge/-undefined-orange)
+### movement ![string](https://img.shields.io/badge/-"forvard"-green) ![string](https://img.shields.io/badge/-"back"-green) ![undefined](https://img.shields.io/badge/-undefined-orange)
 This is an observable field, returns `undefined` if you just load the page.
 When you moved through history the field changes to the status of the moving.  
 ```javascript
@@ -221,9 +221,9 @@ history.push('/test')
 ### links
 - [react-mobx-routing](https://github.com/d8corp/react-mobx-routing) [![NPM](https://img.shields.io/npm/v/react-mobx-routing.svg)](https://www.npmjs.com/package/react-mobx-routing) for React projects. 
 ## Issues
-> If you find a bug, please file an issue on [GitHub](https://github.com/d8corp/mobx-history-api/issues)  
-> [![issues](https://img.shields.io/github/issues-raw/d8corp/mobx-history-api)](https://github.com/d8corp/mobx-history-api/issues)  
----
+If you find a bug, please file an issue on [GitHub](https://github.com/d8corp/mobx-history-api/issues)  
+[![issues](https://img.shields.io/github/issues-raw/d8corp/mobx-history-api)](https://github.com/d8corp/mobx-history-api/issues)  
+> ---
 [![stars](https://img.shields.io/github/stars/d8corp/mobx-history-api?style=social)](https://github.com/d8corp/mobx-history-api/stargazers)
 [![watchers](https://img.shields.io/github/watchers/d8corp/mobx-history-api?style=social)](https://github.com/d8corp/mobx-history-api/watchers)
 
