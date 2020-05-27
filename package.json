@@ -33,17 +33,16 @@
   },
   "homepage": "https://github.com/d8corp/mobx-history-api",
   "devDependencies": {
-    "@types/jest": "^24.9.0",
-    "acorn": ">=7.1.1",
-    "jest": "^25.1.0",
-    "rimraf": "^3.0.0",
-    "rollup": "^1.29.0",
-    "rollup-plugin-typescript2": "^0.25.3",
-    "ts-jest": "^25.2.0",
-    "typescript": "^3.7.5"
+    "@types/jest": "^25.2.3",
+    "jest": "^26.0.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.10.9",
+    "rollup-plugin-typescript2": "^0.27.1",
+    "ts-jest": "^26.0.0",
+    "typescript": "^3.9.3"
   },
   "dependencies": {
-    "mobx": "^3",
+    "mobx": ">=3",
     "tslib": "^2.0.0"
   }
 }
