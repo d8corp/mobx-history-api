@@ -80,6 +80,10 @@ async function publish () {
     consoleStart('publishing')
     await getPromise(resolve => exec(`npm publish ${releaseDir}`, {}, resolve))
     consoleEnd('publishing')
+    const version = packageJSON.version
+    consoleStart(`creating tag v${version}`)
+    await getPromise(resolve => exec(`cd .. && git add -A && git commit -m "release v${version}" && git tag v${version} && git push origin --tags`, {}, resolve))
+    consoleEnd(`creating tag v${version}`)
   }
 }
 
