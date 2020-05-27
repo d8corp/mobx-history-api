@@ -1,12 +1,19 @@
-export interface ParsedUrl {
+interface ParsedUrl {
   path: string | undefined
   search: string | undefined
   hash: string | undefined
 }
 
-export const ParseUrlReg = /^(?<path>[^?#]*)?(\?(?<search>[^#]*))?(#(?<hash>.*))?/
+const ParseUrlReg = /^(?<path>[^?#]*)?(\?(?<search>[^#]*))?(#(?<hash>.*))?/
 
-export default function parseUrl (url: string): ParsedUrl {
+function parseUrl (url: string): ParsedUrl {
   // @ts-ignore
   return url.match(ParseUrlReg).groups
+}
+
+export default parseUrl
+
+export {
+  ParseUrlReg,
+  ParsedUrl
 }

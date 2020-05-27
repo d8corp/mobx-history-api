@@ -1,18 +1,18 @@
 import {action, computed, observable, IComputedValue} from 'mobx'
 
-export type Step = {
+type Step = {
   url: string
   locale: string
   position: number
 }
-export type Steps = Step[]
-export type State = {
+type Steps = Step[]
+type State = {
   key: string
   steps: Steps
 }
-export type ScrollCallback = () => any | void
+type ScrollCallback = () => any | void
 
-export default class History {
+class History {
   constructor (key = 'mobx-history-api') {
     this.key = key
     const {state} = window.history
@@ -195,4 +195,13 @@ export default class History {
     }
     return this.getCache[reg][index].get()
   }
+}
+
+export default History
+
+export {
+  Step,
+  Steps,
+  State,
+  ScrollCallback
 }
