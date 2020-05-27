@@ -1,6 +1,5 @@
 # mobx-history-api
 [![NPM](https://img.shields.io/npm/v/mobx-history-api.svg)](https://www.npmjs.com/package/mobx-history-api)
-![minzipped size](https://img.shields.io/bundlephobia/minzip/mobx-history-api)
 ![downloads](https://img.shields.io/npm/dm/mobx-history-api.svg)
 ![license](https://img.shields.io/npm/l/mobx-history-api)  
 Browser History API with [Mobx](https://mobx.js.org/README.html) 3 and more.
@@ -22,7 +21,7 @@ const history = new History()
 ```
 ## Fields
 ### url ![string](https://img.shields.io/badge/-string-green)
-This is an observable field, returns current URL includes pathname, search and hash.  
+This is an observable field, returns current relative URL includes pathname, search and hash.  
 ```javascript
 history.url // current url
 ```
@@ -169,6 +168,31 @@ If you finished working with history and wanna get rid of it, just run `destruct
 `destructor()`
 ```javascript
 history.destructor()
+```
+## Utils
+### decode
+Just decodes URL to string
+```javascript
+import {decode} from 'mobx-history-api'
+decode(location.href)
+```
+### parseUrl
+Returns an object with `path`, `search` and `hash` fields of relative URL
+```javascript
+import {parseUrl} from 'mobx-history-api'
+parseUrl(location.pathname + location.search + location.hash)
+```
+### setSearch
+Sets search value to relative URL
+```javascript
+import {setSearch} from 'mobx-history-api'
+setSearch('/test', 'key', 'value') // "/test?key=value"
+```
+### removeSearch
+Removes search value from relative URL
+```javascript
+import {removeSearch} from 'mobx-history-api'
+removeSearch('/test?key=value', 'key') // "/test"
 ```
 ## Example
 ```javascript

@@ -1,7 +1,9 @@
-export interface ParsedUrl {
+interface ParsedUrl {
     path: string | undefined;
     search: string | undefined;
     hash: string | undefined;
 }
-export declare const ParseUrlReg: RegExp;
-export default function parseUrl(url: string): ParsedUrl;
+declare const ParseUrlReg: RegExp;
+declare function parseUrl(url: string): ParsedUrl;
+export default parseUrl;
+export { ParseUrlReg, ParsedUrl };
