@@ -57,14 +57,27 @@ history.locale = 'ru'
 history.url = '/test'
 location.pathname = '/ru/test'
 ```
+If you need to define the default locale, just provide it to the constructor.
+```javascript
+window.history.pushState({}, null, '/ru')
+
+const history = new History('ru')
+
+history.locale // 'ru'
+history.url // '/'
+```
 ### movement ![string](https://img.shields.io/badge/-"forvard"-green) ![string](https://img.shields.io/badge/-"back"-green) ![undefined](https://img.shields.io/badge/-undefined-orange)
 This is an observable field, returns `undefined` if you just load the page.
 When you moved through history the field changes to the status of the moving.  
 ```javascript
 // history.movement === undefined
+
 history.push('/test')
+
 // history.movement === 'forward'
+
 history.back()
+
 // history.movement === 'back'
 ```
 ### state ![object](https://img.shields.io/badge/-object-orange)
@@ -72,7 +85,9 @@ This is an observable field, returns the state of history api.
 `state` equals `window.history.state` when number of `steps` more than 1.
 ```javascript
 history.state // {key: '...', steps: [{...}]}
+
 history.push('/test')
+
 history.state // {key: '...', steps: [{...}, {...}]}
 ```
 ## Methods
@@ -110,6 +125,7 @@ By default any time when you push a new URL the page scrolls up to position `0`.
 If you wanna custom scroll the page after the pushing you can provide the second argument as a position of scroll.
 ```javascript
 history.push('/test', 200)
+
 history.push('/', '#root')
 ```
 If you do not want to scroll, provide `-1` as a position of scrolling.  
@@ -174,24 +190,28 @@ history.destructor()
 Just decodes URL to string
 ```javascript
 import {decode} from 'mobx-history-api'
+
 decode(location.href)
 ```
 ### parseUrl
 Returns an object with `path`, `search` and `hash` fields of relative URL
 ```javascript
 import {parseUrl} from 'mobx-history-api'
+
 parseUrl(location.pathname + location.search + location.hash)
 ```
 ### setSearch
 Sets search value to relative URL
 ```javascript
 import {setSearch} from 'mobx-history-api'
+
 setSearch('/test', 'key', 'value') // "/test?key=value"
 ```
 ### removeSearch
 Removes search value from relative URL
 ```javascript
 import {removeSearch} from 'mobx-history-api'
+
 removeSearch('/test?key=value', 'key') // "/test"
 ```
 ## Example
