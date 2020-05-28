@@ -1,47 +1,17 @@
 import History from '.'
 import {autorun} from 'mobx'
 
-const history = new History()
+window.history.pushState({}, null, '/ru')
+
+const history = new History('ru')
 
 describe('mobx-history', () => {
-  it('test', () => {
-    const reg = /^(?<path>[^?#]*)?(\?(?<search>[^#]*))?(#(?<hash>.*))?/
-
-    expect('/test?key=value#hashtag'.match(reg).groups).toEqual({
-      path: '/test',
-      search: 'key=value',
-      hash: 'hashtag',
-    })
-    expect('/test'.match(reg).groups).toEqual({
-      path: '/test',
-      search: undefined,
-      hash: undefined,
-    })
-    expect('?test'.match(reg).groups).toEqual({
-      path: undefined,
-      search: 'test',
-      hash: undefined,
-    })
-    expect('#test'.match(reg).groups).toEqual({
-      path: undefined,
-      search: undefined,
-      hash: 'test',
-    })
-    expect('?key=value#test'.match(reg).groups).toEqual({
-      path: undefined,
-      search: 'key=value',
-      hash: 'test',
-    })
-    expect('test1?#test2'.match(reg).groups).toEqual({
-      path: 'test1',
-      search: '',
-      hash: 'test2',
-    })
-    expect('test1?#'.match(reg).groups).toEqual({
-      path: 'test1',
-      search: '',
-      hash: '',
-    })
+  it('constructor locale', () => {
+    expect(history.state).not.toBe(window.history.state)
+    expect(history.url).toEqual('/')
+    expect(history.locale).toEqual('ru')
+    expect(location.pathname).toEqual('/ru')
+    history.locale = ''
   })
   it('url', () => {
     const {path, search, hash} = '/test?key=value#hashtag'.match(/^(?<path>[^?#]*)?\?/).groups
@@ -58,7 +28,7 @@ describe('mobx-history', () => {
         url: '/'
       }]
     })
-    expect(history.state).not.toBe(window.history.state)
+    expect(history.state).toBe(window.history.state)
   })
   it('push', () => {
     const urlLog = []

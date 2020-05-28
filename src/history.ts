@@ -13,8 +13,9 @@ type State = {
 type ScrollCallback = () => any | void
 
 class History {
-  constructor (key = 'mobx-history-api') {
+  constructor (locale = '', key = 'mobx-history-api') {
     this.key = key
+    this._locale = locale
     const {state} = window.history
     if (state && key === state.key) {
       this.state = state
@@ -28,12 +29,17 @@ class History {
 
   protected get defaultState (): State {
     const {location} = window
+    const locale = this._locale
+    let url = location.pathname + location.search + location.hash
+    if (locale) {
+      url = url.replace(new RegExp(`^/${locale}(/|$)`), '/')
+    }
     return {
       key: this.key,
       steps: [{
-        locale: this._locale,
+        locale,
         position: 0,
-        url: location.pathname + location.search + location.hash
+        url
       }]
     }
   }
@@ -52,13 +58,14 @@ class History {
       const {state} = this
       const lastStep = state.steps[state.steps.length - 1]
       const {url} = lastStep
-      window.history.replaceState({
+      this.state = {
         key: this.key,
         steps: [...state.steps.slice(0, -1), {
           ...lastStep,
           locale
         }]
-      }, null, locale ? '/' + locale + (url === '/' ? '' : url) : url)
+      }
+      window.history.replaceState(this.state, null, locale ? '/' + locale + (url === '/' ? '' : url) : url)
     })()
   }
 

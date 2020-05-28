@@ -11,7 +11,7 @@ declare type State = {
 };
 declare type ScrollCallback = () => any | void;
 declare class History {
-    constructor(key?: string);
+    constructor(locale?: string, key?: string);
     protected get defaultState(): State;
     protected readonly key: string;
     movement: 'back' | 'forward' | undefined;
