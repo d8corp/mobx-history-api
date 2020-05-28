@@ -220,12 +220,11 @@ import {setSearch} from 'mobx-history-api'
 
 setSearch('/test', 'key', 'value') // "/test?key=value"
 ```
-### removeSearch
-Removes search value from relative URL
+Use 2 arguments to remove a key.
 ```javascript
-import {removeSearch} from 'mobx-history-api'
+import {setSearch} from 'mobx-history-api'
 
-removeSearch('/test?key=value', 'key') // "/test"
+setSearch('/test?key=value', 'key') // "/test"
 ```
 ## Example
 ```javascript

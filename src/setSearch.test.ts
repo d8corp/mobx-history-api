@@ -9,5 +9,6 @@ describe('setSearch', () => {
     expect(setSearch('/path/1?key', 'key', 'value')).toBe('/path/1?key=value')
     expect(setSearch('/path/1?key=value', 'key', 'value1')).toBe('/path/1?key=value1')
     expect(setSearch('/path/1?key1=value&key&key2', 'key', 'value1')).toBe('/path/1?key1=value&key=value1&key2')
+    expect(setSearch('/path/1?key1=value&key&key2', 'key')).toBe('/path/1?key1=value&key2')
   })
 })

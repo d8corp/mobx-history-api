@@ -1,6 +1,10 @@
 import parseUrl from './parseUrl'
+import removeSearch from './removeSearch'
 
-export default function setSearch (url: string, key: string, value: string): string {
+export default function setSearch (url: string, key: string, value?: string): string {
+  if (value === undefined) {
+    return removeSearch(url, key)
+  }
   const {path = '', search = '', hash = ''} = parseUrl(url)
   let newSearch = ''
 
