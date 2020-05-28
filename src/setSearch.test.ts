@@ -2,6 +2,7 @@ import setSearch from './setSearch'
 
 describe('setSearch', () => {
   it('simple', () => {
+    expect(setSearch('/', 'key', '')).toBe('/?key')
     expect(setSearch('/', 'key', 'value')).toBe('/?key=value')
     expect(setSearch('', 'key', 'value')).toBe('?key=value')
     expect(setSearch('?test=checked', 'key', 'value')).toBe('?test=checked&key=value')

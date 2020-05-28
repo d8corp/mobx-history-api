@@ -9,11 +9,12 @@ export default function setSearch (url: string, key: string, value?: string): st
   let newSearch = ''
 
   const containsKey = new RegExp(`(^|&)${key}(=|&|$)`).test(search)
+  const postKey = value ? `=${value}` : ''
 
   if (containsKey) {
-    newSearch = search.replace(new RegExp(`(^|&)${key}(=|=[^&]*)?(&|$)`), `$1${key}=${value}$3`)
+    newSearch = search.replace(new RegExp(`(^|&)${key}(=|=[^&]*)?(&|$)`), `$1${key}${postKey}$3`)
   } else {
-    newSearch = `${search ? search + '&' : ''}${key}=${value}`
+    newSearch = `${search ? search + '&' : ''}${key}${postKey}`
   }
   return path + (newSearch ? '?' + newSearch : '') + (hash ? '#' + hash : '')
 }
