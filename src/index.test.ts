@@ -369,4 +369,23 @@ describe('mobx-history', () => {
       expect(location.pathname).toBe('/ru')
     })
   })
+  it('replace', () => {
+    resetHistory('/')
+
+    expect(history.state.steps.length).toBe(1)
+    expect(history.state.steps[0]).toEqual({locale: '', position: 0, url: '/'})
+    expect(history.url).toBe('/')
+
+    history.replace('/test', 100)
+
+    expect(history.state.steps.length).toBe(1)
+    expect(history.state.steps[0]).toEqual({locale: '', position: 100, url: '/test'})
+    expect(history.url).toBe('/test')
+
+    history.replace('/')
+
+    expect(history.state.steps.length).toBe(1)
+    expect(history.state.steps[0]).toEqual({locale: '', position: 0, url: '/'})
+    expect(history.url).toBe('/')
+  })
 })

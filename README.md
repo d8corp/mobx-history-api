@@ -147,6 +147,21 @@ history.back(/.*/) // push any previous url
 ```
 The second argument is used when nothing found in history.  
 The third argument works the same as the third of `push`.
+### replace
+You can replace url on current history position with `replace`.  
+`replace(url: string, position: number | string = 0, scrollFirst = false): this`
+```javascript
+history.push('/test1')
+history.push('/test2')
+
+history.replace('/test3')
+
+history.back()
+this.url // `/test1`
+
+history.forward()
+this.url // `/test3`
+```
 ### go
 You can move to any position of history with method `go`.  
 `go(delta: number): this`

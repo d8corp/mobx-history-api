@@ -145,13 +145,41 @@ class History {
     window.history.go(delta)
     return this
   }
+  protected changeState (callback: (newUrl: string) => void, url: string, position: number | string, scrollFirst: boolean): void {
+    if (url === this.url) return
+    const {locale} = this
+    const mainCallback = () => {
+      callback(locale ? '/' + locale + (url === '/' ? '' : url) : url)
+      this.onChange(window.history.state)
+    }
+    if (scrollFirst) {
+      this.scroll(position, mainCallback)
+    } else {
+      mainCallback()
+      this.scroll(position)
+    }
+  }
+  public replace (url: string, position: number | string = 0, scrollFirst = false): this {
+    const {locale} = this
+    const {steps} = this.state
+    this.changeState(newUrl => {
+      window.history.replaceState({
+        key: this.key,
+        steps: [...steps.slice(0, -1), {
+          locale,
+          url,
+          position: position > -1 ? position : steps[steps.length - 1].position
+        }]
+      } as State, null, newUrl)
+    }, url, position, scrollFirst)
+    return this
+  }
   public push (url: string, position: number | string = 0, scrollFirst = false): this {
     const {locale} = this
-    if (url === this.url) return this
     const {steps} = this.state
     const top = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
     steps[steps.length - 1].position = top
-    const changeUrl = () => {
+    this.changeState(newUrl => {
       window.history.pushState({
         key: this.key,
         steps: [...steps, {
@@ -159,18 +187,11 @@ class History {
           url,
           position: position > -1 ? position : top
         }]
-      } as State, null, locale ? '/' + locale + (url === '/' ? '' : url) : url)
-      this.onChange(window.history.state)
-    }
-    if (scrollFirst) {
-      this.scroll(position, changeUrl)
-    } else {
-      changeUrl()
-      this.scroll(position)
-    }
+      } as State, null, newUrl)
+    }, url, position, scrollFirst)
     return this
   }
-  public scroll (position: number | string, callback?: ScrollCallback) {
+  public scroll (position: number | string, callback?: ScrollCallback): this {
     if (callback) {
       let top = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
       this.scroll(position)
@@ -193,6 +214,7 @@ class History {
         document.documentElement.scrollTop = document.body.scrollTop = position
       }
     }
+    return this
   }
   public is (reg: string): boolean {
     if (!this.isCache) {
