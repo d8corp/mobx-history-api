@@ -35,8 +35,6 @@ describe('mobx-history', () => {
     history.locale = ''
   })
   it('url', () => {
-    const {path, search, hash} = '/test?key=value#hashtag'.match(/^(?<path>[^?#]*)?\?/).groups
-    console.log(path, search, hash)
     expect(location.pathname).toBe('/')
     expect(history.url).toBe('/')
   })
