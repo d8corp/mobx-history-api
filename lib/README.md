@@ -179,6 +179,19 @@ The second argument is used for get information inside round brackets.
 history.get('^/user/([0-9]+)$', 1)
 // returns current user if url matches the regex, otherwise empty string
 ```
+### setLocale
+If you want to set locale and remove it from `url` use `setLocale`.
+`setLocale(locale: string)`
+```javascript
+window.history.pushState({}, null, '/ru')
+
+const history = new History()
+history.setLocale('ru')
+// the same new History('ru')
+
+history.locale // 'ru'
+history.url // '/'
+```
 ### destructor
 If you finished working with history and wanna get rid of it, just run `destructor` method.  
 `destructor()`

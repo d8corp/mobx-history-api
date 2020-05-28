@@ -3,11 +3,32 @@ import {autorun} from 'mobx'
 
 window.history.pushState({}, null, '/ru')
 
-const history = new History('ru')
+let history = new History('ru')
+
+function resetHistory (url = '/') {
+  history.destructor()
+  window.history.pushState({}, null, url)
+  history = new History()
+}
 
 describe('mobx-history', () => {
   it('constructor locale', () => {
     expect(history.state).not.toBe(window.history.state)
+    expect(history.url).toEqual('/')
+    expect(history.locale).toEqual('ru')
+    expect(location.pathname).toEqual('/ru')
+  })
+  it('setLocale', () => {
+    resetHistory('/ru')
+    expect(history.state).not.toBe(window.history.state)
+    expect(history.url).toEqual('/ru')
+    expect(history.locale).toEqual('')
+    expect(location.pathname).toEqual('/ru')
+
+    history.setLocale('ru')
+
+    expect(history.state).toBe(window.history.state)
+    expect(history.state.steps.length).toBe(1)
     expect(history.url).toEqual('/')
     expect(history.locale).toEqual('ru')
     expect(location.pathname).toEqual('/ru')

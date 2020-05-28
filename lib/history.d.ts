@@ -29,6 +29,7 @@ declare class History {
         [reg: string]: IComputedValue<boolean>;
     };
     protected onChange(state: State): void;
+    setLocale(locale?: string): void;
     get url(): string;
     get path(): string;
     get hash(): string;

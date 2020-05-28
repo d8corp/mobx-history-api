@@ -81,6 +81,24 @@ class History {
       this.movement = 'forward'
     }
   }
+  @action setLocale (locale = ''): void {
+    this._locale = locale
+    const {state} = this
+    const lastStep = state.steps[state.steps.length - 1]
+    let url = location.pathname + location.search + location.hash
+    if (locale) {
+      url = url.replace(new RegExp(`^/${locale}(/|$)`), '/')
+    }
+    this.state = {
+      key: this.key,
+      steps: [...state.steps.slice(0, -1), {
+        ...lastStep,
+        locale,
+        url
+      }]
+    }
+    window.history.replaceState(this.state, null, locale ? '/' + locale + (url === '/' ? '' : url) : url)
+  }
 
   @computed public get url (): string {
     const {steps} = this.state
