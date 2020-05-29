@@ -195,7 +195,7 @@ history.get('^/user/([0-9]+)$', 1)
 // returns current user if url matches the regex, otherwise empty string
 ```
 ### setLocale
-If you want to set locale and remove it from `url` use `setLocale`.
+If you want to set locale and remove it from `url` use `setLocale`.  
 `setLocale(locale: string)`
 ```javascript
 window.history.pushState({}, null, '/ru')
