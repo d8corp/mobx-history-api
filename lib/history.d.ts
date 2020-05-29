@@ -38,8 +38,10 @@ declare class History {
     back(reg?: RegExp, def?: string, scrollFirst?: boolean): this;
     forward(): this;
     go(delta: number): this;
+    protected changeState(callback: (newUrl: string) => void, url: string, position: number | string, scrollFirst: boolean): void;
+    replace(url: string, position?: number | string, scrollFirst?: boolean): this;
     push(url: string, position?: number | string, scrollFirst?: boolean): this;
-    scroll(position: number | string, callback?: ScrollCallback): void;
+    scroll(position: number | string, callback?: ScrollCallback): this;
     is(reg: string): boolean;
     get(reg: string, index?: number, defaultValue?: string): string;
 }

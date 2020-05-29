@@ -147,6 +147,21 @@ history.back(/.*/) // push any previous url
 ```
 The second argument is used when nothing found in history.  
 The third argument works the same as the third of `push`.
+### replace
+You can replace url on current history position with `replace`.  
+`replace(url: string, position: number | string = 0, scrollFirst = false): this`
+```javascript
+history.push('/test1')
+history.push('/test2')
+
+history.replace('/test3')
+
+history.back()
+this.url // `/test1`
+
+history.forward()
+this.url // `/test3`
+```
 ### go
 You can move to any position of history with method `go`.  
 `go(delta: number): this`
@@ -180,7 +195,7 @@ history.get('^/user/([0-9]+)$', 1)
 // returns current user if url matches the regex, otherwise empty string
 ```
 ### setLocale
-If you want to set locale and remove it from `url` use `setLocale`.
+If you want to set locale and remove it from `url` use `setLocale`.  
 `setLocale(locale: string)`
 ```javascript
 window.history.pushState({}, null, '/ru')
