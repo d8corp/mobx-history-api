@@ -146,7 +146,6 @@ class History {
     return this
   }
   protected changeState (callback: (newUrl: string) => void, url: string, position: number | string, scrollFirst: boolean): void {
-    if (url === this.url) return
     const {locale} = this
     const mainCallback = () => {
       callback(locale ? '/' + locale + (url === '/' ? '' : url) : url)
@@ -175,19 +174,21 @@ class History {
     return this
   }
   public push (url: string, position: number | string = 0, scrollFirst = false): this {
-    const {locale} = this
+    const {locale, url: currentUrl} = this
     const {steps} = this.state
     const top = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
     steps[steps.length - 1].position = top
     this.changeState(newUrl => {
-      window.history.pushState({
-        key: this.key,
-        steps: [...steps, {
-          locale,
-          url,
-          position: position > -1 ? position : top
-        }]
-      } as State, null, newUrl)
+      if (currentUrl !== url) {
+        window.history.pushState({
+          key: this.key,
+          steps: [...steps, {
+            locale,
+            url,
+            position: position > -1 ? position : top
+          }]
+        } as State, null, newUrl)
+      }
     }, url, position, scrollFirst)
     return this
   }

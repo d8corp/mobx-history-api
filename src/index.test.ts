@@ -49,56 +49,89 @@ describe('mobx-history', () => {
     })
     expect(history.state).toBe(window.history.state)
   })
-  it('push', () => {
-    const urlLog = []
-    const stateLog = []
+  describe('push', () => {
+    it('simple', () => {
+      const urlLog = []
+      const stateLog = []
 
-    history.push('/test')
-    expect(history.state).toStrictEqual(window.history.state)
-    expect(location.pathname).toBe('/test')
+      history.push('/test')
+      expect(history.state).toStrictEqual(window.history.state)
+      expect(location.pathname).toBe('/test')
 
-    autorun(() => urlLog.push(history.url))
-    autorun(() => stateLog.push(history.state))
+      autorun(() => urlLog.push(history.url))
+      autorun(() => stateLog.push(history.state))
 
-    expect(history.url).toBe('/test')
-    expect(urlLog.length).toBe(1)
-    expect(urlLog).toEqual(['/test'])
-    expect(stateLog.length).toBe(1)
-    expect(stateLog).toEqual([{
-      key: 'mobx-history-api',
-      steps: [{
-        locale: '',
-        position: 0,
-        url: '/'
-      },{
-        locale: '',
-        position: 0,
-        url: '/test'
-      }]
-    }])
+      expect(history.url).toBe('/test')
+      expect(urlLog.length).toBe(1)
+      expect(urlLog).toEqual(['/test'])
+      expect(stateLog.length).toBe(1)
+      expect(stateLog).toEqual([{
+        key: 'mobx-history-api',
+        steps: [{
+          locale: '',
+          position: 0,
+          url: '/'
+        }, {
+          locale: '',
+          position: 0,
+          url: '/test'
+        }]
+      }])
 
-    history.push('/')
+      history.push('/')
 
-    expect(location.pathname).toBe('/')
-    expect(history.url).toBe('/')
-    expect(urlLog.length).toBe(2)
-    expect(urlLog).toEqual(['/test', '/'])
-    expect(stateLog.length).toBe(2)
-    expect(stateLog).toEqual([{
-      key: 'mobx-history-api',
-      steps: [{
-        locale: '',
-        position: 0,
-        url: '/'
+      expect(location.pathname).toBe('/')
+      expect(history.url).toBe('/')
+      expect(urlLog.length).toBe(2)
+      expect(urlLog).toEqual(['/test', '/'])
+      expect(stateLog.length).toBe(2)
+      expect(stateLog).toEqual([{
+        key: 'mobx-history-api',
+        steps: [{
+          locale: '',
+          position: 0,
+          url: '/'
+        }, {
+          position: 0,
+          locale: '',
+          url: '/test'
+        }]
       }, {
-        position: 0,
-        locale: '',
-        url: '/test'
-      }]
-    }, {
-      key: 'mobx-history-api',
-      steps: [
-        {
+        key: 'mobx-history-api',
+        steps: [
+          {
+            position: 0,
+            locale: '',
+            url: '/'
+          }, {
+            position: 0,
+            locale: '',
+            url: '/test'
+          }, {
+            position: 0,
+            locale: '',
+            url: '/'
+          }
+        ]
+      }])
+    })
+    it('same url', () => {
+      const {length} = history.state.steps
+      history.push('/')
+      expect(history.state.steps.length).toBe(length)
+    })
+  })
+  describe('scroll', () => {
+    it('simple', () => {
+      history.scroll(100)
+      let position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+      expect(position).toBe(100)
+      history.push('/scroll')
+      position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+      expect(position).toBe(0)
+      expect(history.state).toEqual({
+        key: 'mobx-history-api',
+        steps: [{
           position: 0,
           locale: '',
           url: '/'
@@ -107,39 +140,23 @@ describe('mobx-history', () => {
           locale: '',
           url: '/test'
         }, {
-          position: 0,
+          position: 100,
           locale: '',
           url: '/'
-        }
-      ]
-    }])
-  })
-  it('scroll', () => {
-    history.scroll(100)
-    let position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-    expect(position).toBe(100)
-    history.push('/scroll')
-    position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-    expect(position).toBe(0)
-    expect(history.state).toEqual({
-      key: 'mobx-history-api',
-      steps: [{
-        position: 0,
-        locale: '',
-        url: '/'
-      }, {
-        position: 0,
-        locale: '',
-        url: '/test'
-      }, {
-        position: 100,
-        locale: '',
-        url: '/'
-      }, {
-        position: 0,
-        locale: '',
-        url: '/scroll'
-      }]
+        }, {
+          position: 0,
+          locale: '',
+          url: '/scroll'
+        }]
+      })
+    })
+    it('same url', () => {
+      history.scroll(100)
+      let position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+      expect(position).toBe(100)
+      history.push(history.url)
+      position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+      expect(position).toBe(0)
     })
   })
   it('push back', () => {
