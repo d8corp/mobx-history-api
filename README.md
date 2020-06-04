@@ -1,7 +1,7 @@
 # mobx-history-api
-[![NPM](https://img.shields.io/npm/v/mobx-history-api.svg)](https://www.npmjs.com/package/mobx-history-api)
-![downloads](https://img.shields.io/npm/dm/mobx-history-api.svg)
-![license](https://img.shields.io/npm/l/mobx-history-api)  
+[![NPM](https://img.shields.io/npm/v/mobx-history-api.svg)](https://github.com/d8corp/mobx-history-api/blob/master/CHANGELOG.md)
+[![downloads](https://img.shields.io/npm/dm/mobx-history-api.svg)](https://www.npmjs.com/package/mobx-history-api)
+[![license](https://img.shields.io/npm/l/mobx-history-api)](https://github.com/d8corp/mobx-history-api/blob/master/LICENSE)  
 Browser History API with [Mobx](https://mobx.js.org/README.html) 3 and more.
 ### Installation
 npm
