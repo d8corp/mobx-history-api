@@ -108,7 +108,8 @@ class History {
     return this.url.replace(/[?#].*/, '')
   }
   @computed public get hash (): string {
-    return this.url.replace(/^[^#]*#/, '')
+    const math = this.url.match(/^[^#]*#(.+)/)
+    return math ? math[1] : ''
   }
   @computed public get href (): string {
     return this.url.replace(/#.*/, '')

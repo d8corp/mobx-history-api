@@ -253,27 +253,33 @@ describe('mobx-history', () => {
     expect(result.length).toBe(4)
     expect(result[3]).toBe('3')
   })
-  it('hash', () => {
-    const result = []
+  describe('hash', () => {
+    it('simple', () => {
+      const result = []
 
-    history.push('/test#test1')
+      history.push('/test#test1')
 
-    autorun(() => result.push(history.hash))
+      autorun(() => result.push(history.hash))
 
-    expect(history.hash).toBe('test1')
-    expect(result.length).toBe(1)
-    expect(result[0]).toBe('test1')
+      expect(history.hash).toBe('test1')
+      expect(result.length).toBe(1)
+      expect(result[0]).toBe('test1')
 
-    history.push('#test2')
+      history.push('#test2')
 
-    expect(history.hash).toBe('test2')
-    expect(result.length).toBe(2)
-    expect(result[1]).toBe('test2')
+      expect(history.hash).toBe('test2')
+      expect(result.length).toBe(2)
+      expect(result[1]).toBe('test2')
 
-    history.push('?key=1#test2')
+      history.push('?key=1#test2')
 
-    expect(history.hash).toBe('test2')
-    expect(result.length).toBe(2)
+      expect(history.hash).toBe('test2')
+      expect(result.length).toBe(2)
+    })
+    it('without hash', () => {
+      history.replace('/test?test1=test2')
+      expect(history.hash).toBe('')
+    })
   })
   it('href', () => {
     const result = []
