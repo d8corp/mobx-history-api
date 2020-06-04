@@ -1,5 +1,6 @@
 # Changelog
 ## v1.0 [![20.05.2020](https://img.shields.io/date/1589999940)](https://github.com/d8corp/react-mobx-routing/tree/v1.0)
+- fixed a bug of delay when you use smooth scroll
 ### v1.0.10 [![04.06.2020](https://img.shields.io/date/1591273905)](https://github.com/d8corp/react-mobx-routing/tree/v1.0.10)
 - scroll the page when you push the same url as current
 - added changelog

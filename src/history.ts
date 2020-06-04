@@ -202,6 +202,8 @@ class History {
         if (currentTop === top || count++ === 30) {
           clearInterval(interval)
           callback()
+        } else {
+          top = currentTop
         }
       }, 100)
     } else if (typeof position === 'string') {
