@@ -158,6 +158,16 @@ describe('mobx-history', () => {
       position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
       expect(position).toBe(0)
     })
+    it('scrollTo fake element', () => {
+      history.scroll(100)
+      let position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+      expect(position).toBe(100)
+
+      history.scroll('#test')
+
+      position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+      expect(position).toBe(0)
+    })
   })
   it('push back', () => {
     history.push('/test', 100)

@@ -211,6 +211,8 @@ class History {
       const element = document.querySelector(position)
       if (element) {
         element.scrollIntoView()
+      } else {
+        this.scroll(0)
       }
     } else if (position > -1) {
       const top = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
