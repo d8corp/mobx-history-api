@@ -10,6 +10,7 @@ declare type State = {
     steps: Steps;
 };
 declare type ScrollCallback = () => any | void;
+declare type BackChk = (state: Step) => boolean;
 declare class History {
     constructor(locale?: string, key?: string);
     protected get defaultState(): State;
@@ -35,7 +36,7 @@ declare class History {
     get hash(): string;
     get href(): string;
     search(key: string): string;
-    back(reg?: RegExp, def?: string, scrollFirst?: boolean): this;
+    back(reg?: RegExp | BackChk, def?: string, scrollFirst?: boolean): this;
     forward(): this;
     go(delta: number): this;
     protected changeState(callback: (newUrl: string) => void, url: string, position: number | string, scrollFirst: boolean): void;
@@ -46,4 +47,4 @@ declare class History {
     get(reg: string, index?: number, defaultValue?: string): string;
 }
 export default History;
-export { Step, Steps, State, ScrollCallback };
+export { Step, Steps, State, ScrollCallback, BackChk };
