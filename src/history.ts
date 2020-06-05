@@ -11,6 +11,7 @@ type State = {
   steps: Steps
 }
 type ScrollCallback = () => any | void
+type BackChk = (state: Step) => boolean
 
 class History {
   constructor (locale = '', key = 'mobx-history-api') {
@@ -119,14 +120,17 @@ class History {
     return this.get(`^[^?#]*\\?([^#]*\\&)*${key}=([^#&]*)`, 2)
   }
 
-  public back (reg?: RegExp, def = '/', scrollFirst = false): this {
+  public back (reg?: RegExp | BackChk, def = '/', scrollFirst = false): this {
     if (reg) {
+      if (typeof reg !== 'function') {
+        const regexp = reg
+        reg = step => regexp.test(step.url)
+      }
       const {steps} = this.state
       for (let i = steps.length - 1; i > -1; i--) {
         const step = steps[i]
-        const {url} = step
-        if (reg.test(url)) {
-          return this.push(url, step.position, scrollFirst)
+        if (reg(step)) {
+          return this.push(step.url, step.position, scrollFirst)
         }
       }
       this.push(def, 0, scrollFirst)
@@ -256,5 +260,6 @@ export {
   Step,
   Steps,
   State,
-  ScrollCallback
+  ScrollCallback,
+  BackChk
 }

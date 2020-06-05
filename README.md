@@ -135,7 +135,7 @@ history.push('/test', 0, true)
 ```
 ### back
 You can move back like you click on back button in your browser.  
-`back(reg?: RegExp, def = '/', scrollFirst = false): this`
+`back(reg?: RegExp | BackChk, def = '/', scrollFirst = false): this`
 ```javascript
 history.back()
 ```
@@ -144,6 +144,11 @@ Just provide an argument to the method.
 The argument should be regex to test previous states.
 ```javascript
 history.back(/.*/) // push any previous url
+```
+You can handle all previous steps by function
+```javascript
+history.back(({url}) => url !== '/test')
+// push any previous url except for '/test'
 ```
 The second argument is used when nothing found in history.  
 The third argument works the same as the third of `push`.

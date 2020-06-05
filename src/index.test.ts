@@ -169,18 +169,29 @@ describe('mobx-history', () => {
       expect(position).toBe(0)
     })
   })
-  it('push back', () => {
-    history.push('/test', 100)
-    let position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-    expect(position).toBe(100)
-    history.push('/')
-    history.push('/?test=1')
-    position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-    expect(position).toBe(0)
-    history.back(/^\/test$/)
-    position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-    expect(history.url).toBe('/test')
-    expect(position).toBe(100)
+  describe('back', () => {
+    it('regex', () => {
+      history.push('/test', 100)
+      let position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+      expect(position).toBe(100)
+      history.push('/')
+      history.push('/?test=1')
+      position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+      expect(position).toBe(0)
+      history.back(/^\/test$/)
+      position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+      expect(history.url).toBe('/test')
+      expect(position).toBe(100)
+    })
+    it('function', () => {
+      expect(history.url).toBe('/test')
+      history.push('/test1')
+      expect(history.url).toBe('/test1')
+      history.push('/test2')
+      expect(history.url).toBe('/test2')
+      history.back(({url}) => url === '/test')
+      expect(history.url).toBe('/test')
+    })
   })
   it('path', () => {
     const result = []

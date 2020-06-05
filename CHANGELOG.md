@@ -1,6 +1,7 @@
 # Changelog
 ## v1.0 [![20.05.2020](https://img.shields.io/date/1589999940)](https://github.com/d8corp/mobx-history-api/tree/v1.0)
 
+- improved `back` method
 ### v1.0.12 [![05.06.2020](https://img.shields.io/date/1591352292)](https://github.com/d8corp/mobx-history-api/tree/v1.0.12)
 - fixed wrong hash calculation
 - added scrolling up if the element is not in the DOM
