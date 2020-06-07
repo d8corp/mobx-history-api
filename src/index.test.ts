@@ -1,61 +1,69 @@
 import History from '.'
 import {autorun} from 'mobx'
 
-window.history.pushState({}, null, '/ru')
+let history = new History()
 
-let history = new History('ru')
-
-function resetHistory (url = '/') {
+function resetHistory (url = '/', locale?) {
   history.destructor()
   window.history.pushState({}, null, url)
-  history = new History()
+  history = new History(locale)
 }
 
 describe('mobx-history', () => {
-  it('constructor locale', () => {
-    expect(history.state).not.toBe(window.history.state)
-    expect(history.url).toEqual('/')
-    expect(history.locale).toEqual('ru')
-    expect(location.pathname).toEqual('/ru')
-  })
-  it('setLocale', () => {
-    resetHistory('/ru')
-    expect(history.state).not.toBe(window.history.state)
-    expect(history.url).toEqual('/ru')
-    expect(history.locale).toEqual('')
-    expect(location.pathname).toEqual('/ru')
+  describe('constructor', () => {
+    it('constructor', () => {
+      resetHistory('/')
 
-    history.setLocale('ru')
+      expect(history.url).toEqual('/')
+      expect(history.locale).toEqual('')
+      expect(history.localUrl).toEqual('/')
+      expect(location.pathname).toEqual('/')
+    })
+    it('constructor locale', () => {
+      resetHistory('/ru', 'ru')
 
-    expect(history.state).toBe(window.history.state)
-    expect(history.state.steps.length).toBe(1)
-    expect(history.url).toEqual('/')
-    expect(history.locale).toEqual('ru')
-    expect(location.pathname).toEqual('/ru')
-    history.locale = ''
+      expect(history.url).toEqual('/')
+      expect(history.locale).toEqual('ru')
+      expect(history.localUrl).toEqual('/ru')
+      expect(location.pathname).toEqual('/ru')
+    })
+    it('constructor locales', () => {
+      resetHistory('/ru', 'ru|en')
+
+      expect(history.url).toEqual('/')
+      expect(history.locale).toEqual('ru')
+      expect(history.localUrl).toEqual('/ru')
+      expect(location.pathname).toEqual('/ru')
+
+      resetHistory('/fr', 'ru|en')
+
+      expect(history.url).toEqual('/fr')
+      expect(history.locale).toEqual('')
+      expect(history.localUrl).toEqual('/fr')
+      expect(location.pathname).toEqual('/fr')
+    })
   })
   it('url', () => {
+    resetHistory('/')
     expect(location.pathname).toBe('/')
     expect(history.url).toBe('/')
   })
   it('state', () => {
+    resetHistory('/')
     expect(history.state).toEqual({
-      key: 'mobx-history-api',
-      steps: [{
-        locale: '',
-        position: 0,
-        url: '/'
-      }]
+      key: 'mobx-history-api v1.1',
+      steps: []
     })
-    expect(history.state).toBe(window.history.state)
+    expect(history.state).not.toBe(window.history.state)
   })
   describe('push', () => {
     it('simple', () => {
+      resetHistory('/')
       const urlLog = []
       const stateLog = []
 
       history.push('/test')
-      expect(history.state).toStrictEqual(window.history.state)
+      expect(history.state).toBe(window.history.state)
       expect(location.pathname).toBe('/test')
 
       autorun(() => urlLog.push(history.url))
@@ -66,15 +74,10 @@ describe('mobx-history', () => {
       expect(urlLog).toEqual(['/test'])
       expect(stateLog.length).toBe(1)
       expect(stateLog).toEqual([{
-        key: 'mobx-history-api',
+        key: 'mobx-history-api v1.1',
         steps: [{
-          locale: '',
           position: 0,
           url: '/'
-        }, {
-          locale: '',
-          position: 0,
-          url: '/test'
         }]
       }])
 
@@ -86,31 +89,20 @@ describe('mobx-history', () => {
       expect(urlLog).toEqual(['/test', '/'])
       expect(stateLog.length).toBe(2)
       expect(stateLog).toEqual([{
-        key: 'mobx-history-api',
+        key: 'mobx-history-api v1.1',
         steps: [{
-          locale: '',
           position: 0,
           url: '/'
-        }, {
-          position: 0,
-          locale: '',
-          url: '/test'
         }]
       }, {
-        key: 'mobx-history-api',
+        key: 'mobx-history-api v1.1',
         steps: [
           {
             position: 0,
-            locale: '',
             url: '/'
           }, {
             position: 0,
-            locale: '',
             url: '/test'
-          }, {
-            position: 0,
-            locale: '',
-            url: '/'
           }
         ]
       }])
@@ -124,29 +116,20 @@ describe('mobx-history', () => {
   describe('scroll', () => {
     it('simple', () => {
       history.scroll(100)
-      let position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-      expect(position).toBe(100)
+      expect(window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0).toBe(100)
       history.push('/scroll')
-      position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-      expect(position).toBe(0)
+      expect(window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0).toBe(0)
       expect(history.state).toEqual({
-        key: 'mobx-history-api',
+        key: 'mobx-history-api v1.1',
         steps: [{
           position: 0,
-          locale: '',
           url: '/'
         }, {
           position: 0,
-          locale: '',
           url: '/test'
         }, {
           position: 100,
-          locale: '',
           url: '/'
-        }, {
-          position: 0,
-          locale: '',
-          url: '/scroll'
         }]
       })
     })
@@ -189,8 +172,17 @@ describe('mobx-history', () => {
       expect(history.url).toBe('/test1')
       history.push('/test2')
       expect(history.url).toBe('/test2')
-      history.back(({url}) => url === '/test')
+      history.back(url => url === '/test')
       expect(history.url).toBe('/test')
+    })
+    it('position', () => {
+      resetHistory('/')
+      history.scroll(100)
+      expect(window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0).toBe(100)
+      history.push('/test')
+      expect(window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0).toBe(0)
+      history.back(() => true)
+      expect(window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0).toBe(100)
     })
   })
   it('path', () => {
@@ -379,22 +371,25 @@ describe('mobx-history', () => {
   })
   describe('locale', () => {
     it('simple', () => {
-      history.push('/user')
+      resetHistory('/user', 'ru')
+
       expect(history.url).toBe('/user')
       expect(location.pathname).toBe('/user')
+
       history.locale = 'ru'
+
       expect(history.url).toBe('/user')
       expect(location.pathname).toBe('/ru/user')
+
       history.push('/test')
-      expect(history.url).toBe('/test')
+
       expect(location.pathname).toBe('/ru/test')
-      expect(history.state.steps[history.state.steps.length - 1]).toEqual({position: 0, locale: 'ru', url: '/test'})
+      expect(history.url).toBe('/test')
     })
     it('autorun of url', () => {
+      resetHistory('/test', 'ru')
       let count = 0
       const log = []
-      history.locale = ''
-      history.push('/test')
       autorun(() => log.push([count++, history.url]))
 
       expect(count).toBe(1)
@@ -404,7 +399,7 @@ describe('mobx-history', () => {
       expect(count).toBe(1)
     })
     it('without slash', () => {
-      history.push('/')
+      resetHistory('/', 'ru')
       history.locale = 'ru'
       expect(location.pathname).toBe('/ru')
       history.push('/test')
@@ -412,24 +407,47 @@ describe('mobx-history', () => {
       history.push('/')
       expect(location.pathname).toBe('/ru')
     })
+    it('remove locale', () => {
+      resetHistory('/', 'ru')
+      history.locale = 'ru'
+      expect(location.pathname).toBe('/ru')
+      history.locale = ''
+      expect(location.pathname).toBe('/')
+    })
+    it('remove locales', () => {
+      resetHistory('/', 'ru')
+      history.locale = 'ru'
+      expect(history.url).toBe('/')
+      expect(location.pathname).toBe('/ru')
+      history.locales = ''
+      expect(history.url).toBe('/ru')
+      expect(location.pathname).toBe('/ru')
+    })
+  })
+  describe('locales', () => {
+    it('simple', () => {
+      resetHistory('/ru')
+      expect(history.locale).toBe('')
+      expect(history.url).toBe('/ru')
+      history.locales = 'ru'
+      expect(history.locale).toBe('ru')
+      expect(history.url).toBe('/')
+    })
   })
   it('replace', () => {
     resetHistory('/')
 
-    expect(history.state.steps.length).toBe(1)
-    expect(history.state.steps[0]).toEqual({locale: '', position: 0, url: '/'})
+    expect(window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0).toBe(0)
     expect(history.url).toBe('/')
 
     history.replace('/test', 100)
 
-    expect(history.state.steps.length).toBe(1)
-    expect(history.state.steps[0]).toEqual({locale: '', position: 100, url: '/test'})
+    expect(window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0).toBe(100)
     expect(history.url).toBe('/test')
-
     history.replace('/')
 
-    expect(history.state.steps.length).toBe(1)
-    expect(history.state.steps[0]).toEqual({locale: '', position: 0, url: '/'})
     expect(history.url).toBe('/')
+
+    expect(window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0).toBe(0)
   })
 })

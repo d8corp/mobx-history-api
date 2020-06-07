@@ -43,28 +43,48 @@ This is an observable field, returns current path + search of URL.
 history.href
 ```
 *`href` does not include locale*
+### locales ![string](https://img.shields.io/badge/-string-green)
+This is an observable and writable field.  
+Use this field when you wanna have locale prefix in the url.
+```javascript
+history.locales = 'en|fr|ru'
+```
+Or you can provide `locales` via constructor.
+```javascript
+const history = new History('ru|en|de')
+```
 ### locale ![string](https://img.shields.io/badge/-string-green)
 This is an observable and writable field, returns current locale of URL.
 ```javascript
+history.locales // returns empty string by default
+history.locales = 'en|ru'
+
 history.locale // returns empty string by default
+
 history.push('/test')
 
-history.url = '/test'
-location.pathname = '/test'
+history.url // '/test'
+location.pathname // '/test'
 
 history.locale = 'ru'
 
-history.url = '/test'
-location.pathname = '/ru/test'
+history.url // '/test'
+location.pathname // '/ru/test'
+
+history.locales = ''
+
+history.url // '/ru/test'
+location.pathname // '/ru/test'
+location.locale // ''
 ```
-If you need to define the default locale, just provide it to the constructor.
+### localUrl ![string](https://img.shields.io/badge/-string-green)
+This is just current url with the locale
 ```javascript
-window.history.pushState({}, null, '/ru')
+history.localUrl // '/'
 
-const history = new History('ru')
+history.locale = 'ru'
 
-history.locale // 'ru'
-history.url // '/'
+history.localUrl // '/ru'
 ```
 ### movement ![string](https://img.shields.io/badge/-"forvard"-green) ![string](https://img.shields.io/badge/-"back"-green) ![undefined](https://img.shields.io/badge/-undefined-orange)
 This is an observable field, returns `undefined` if you just load the page.
@@ -147,7 +167,7 @@ history.back(/.*/) // push any previous url
 ```
 You can handle all previous steps by function
 ```javascript
-history.back(({url}) => url !== '/test')
+history.back(url => url !== '/test')
 // push any previous url except for '/test'
 ```
 The second argument is used when nothing found in history.  
@@ -198,19 +218,6 @@ The second argument is used for get information inside round brackets.
 ```javascript
 history.get('^/user/([0-9]+)$', 1)
 // returns current user if url matches the regex, otherwise empty string
-```
-### setLocale
-If you want to set locale and remove it from `url` use `setLocale`.  
-`setLocale(locale: string)`
-```javascript
-window.history.pushState({}, null, '/ru')
-
-const history = new History()
-history.setLocale('ru')
-// the same new History('ru')
-
-history.locale // 'ru'
-history.url // '/'
 ```
 ### destructor
 If you finished working with history and wanna get rid of it, just run `destructor` method.  

@@ -1,6 +1,13 @@
 # Changelog
+## v1.1 [![07.06.2020](https://img.shields.io/date/1591536284)](https://github.com/d8corp/mobx-history-api/tree/v1.1)
+- added using a handler as the first argument of `back` method
+- added `locales` field
+- added `localUrl` field
+- changed logic of using history state
+- removed `locale` field from a step of history state
+- removed `setLocale` method
+- improved performance and bundle size
 ## v1.0 [![20.05.2020](https://img.shields.io/date/1589999940)](https://github.com/d8corp/mobx-history-api/tree/v1.0)
-
 ### v1.0.13 [![05.06.2020](https://img.shields.io/date/1591363437)](https://github.com/d8corp/mobx-history-api/tree/v1.0.13)
 - improved `back` method
 ### v1.0.12 [![05.06.2020](https://img.shields.io/date/1591352292)](https://github.com/d8corp/mobx-history-api/tree/v1.0.12)
