@@ -4,11 +4,15 @@ interface ParsedUrl {
   hash: string | undefined
 }
 
-const ParseUrlReg = /^(?<path>[^?#]*)?(\?(?<search>[^#]*))?(#(?<hash>.*))?/
+const ParseUrlReg = /^([^?#]*)?(\?([^#]*))?(#(.*))?/
 
 function parseUrl (url: string): ParsedUrl {
-  // @ts-ignore
-  return url.match(ParseUrlReg).groups
+  const match = url.match(ParseUrlReg)
+  return {
+    path: match[1],
+    search: match[3],
+    hash: match[5]
+  }
 }
 
 export default parseUrl
