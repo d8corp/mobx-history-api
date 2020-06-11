@@ -43,10 +43,44 @@ describe('mobx-history', () => {
       expect(location.pathname).toEqual('/fr')
     })
   })
-  it('url', () => {
-    resetHistory('/')
-    expect(location.pathname).toBe('/')
-    expect(history.url).toBe('/')
+  describe('url', () => {
+    it('simple', () => {
+      resetHistory('/')
+      expect(location.pathname).toBe('/')
+      expect(history.url).toBe('/')
+    })
+    it('keep slash', () => {
+      resetHistory('/')
+      expect(location.pathname).toBe('/')
+      expect(history.url).toBe('/')
+
+      history.push('?test=1')
+      expect(history.url).toBe('/?test=1')
+    })
+    it('lang search', () => {
+      resetHistory('/ru', 'ru')
+
+      expect(location.pathname).toBe('/ru')
+      expect(history.url).toBe('/')
+
+      history.push('?test=1')
+
+      expect(history.url).toBe('/?test=1')
+
+      expect(location.pathname + location.search).toBe('/ru?test=1')
+    })
+    it('lang search + home', () => {
+      resetHistory('/ru', 'ru')
+
+      expect(location.pathname).toBe('/ru')
+      expect(history.url).toBe('/')
+
+      history.push('/?test=1')
+
+      expect(history.url).toBe('/?test=1')
+
+      expect(location.href.replace('http://localhost', '')).toBe('/ru?test=1')
+    })
   })
   it('state', () => {
     resetHistory('/')
@@ -378,8 +412,8 @@ describe('mobx-history', () => {
 
       history.locale = 'ru'
 
-      expect(history.url).toBe('/user')
       expect(location.pathname).toBe('/ru/user')
+      expect(history.url).toBe('/user')
 
       history.push('/test')
 

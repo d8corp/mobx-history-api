@@ -87,7 +87,7 @@ class History {
 
   @computed public get url (): string {
     const {locales, _url} = this
-    return locales ? _url.replace(new RegExp(`^/(${locales})(/|$)`), '/') : _url
+    return locales ? _url.replace(new RegExp(`^/(${locales})((/)|(\\?|#|$))`), '/$4') : _url
   }
   @computed public get path (): string {
     return this.url.replace(/[?#].*/, '')
@@ -213,7 +213,12 @@ class History {
 
   protected changeState (callback: (newUrl: string) => void, locale: string, url: string, position: number | string, scrollFirst?: boolean): void {
     const mainCallback = () => {
-      callback(!locale ? url : url === '/' ? `/${locale}` : `/${locale}${url}`)
+      if (locale) {
+        const match = url.match(/^([^?#]*)(.*)/)
+        callback(match[1] === '/' ? `/${locale}${match[2]}` : `/${locale}${url}`)
+      } else {
+        callback(url)
+      }
       this.onChange(window.history.state)
     }
     if (scrollFirst) {
