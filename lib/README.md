@@ -25,7 +25,7 @@ This is an observable field, returns current relative URL includes pathname, sea
 ```javascript
 history.url // current url
 ```
-*`url` does not include locale*
+*`url` does not include locale and every time starts from `/`*
 ### path ![string](https://img.shields.io/badge/-string-green)
 This is an observable field, returns current pathname of URL.  
 ```javascript
