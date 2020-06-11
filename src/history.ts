@@ -60,7 +60,7 @@ class History {
   @computed public get locale (): string {
     const {locales} = this
     if (locales) {
-      const match = this._url.match(new RegExp(`^/(${locales})(/|$)`))
+      const match = this._url.match(new RegExp(`^/(${locales})(/|\\?|#|$)`))
       return match ? match[1] : ''
     }
     return ''

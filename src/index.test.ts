@@ -81,6 +81,19 @@ describe('mobx-history', () => {
 
       expect(location.href.replace('http://localhost', '')).toBe('/ru?test=1')
     })
+    it('remove search with locale', () => {
+      resetHistory('/ru?test=1', 'ru')
+
+      expect(history.url).toBe('/?test=1')
+      expect(location.pathname + location.search).toBe('/ru?test=1')
+      expect(history.locale).toBe('ru')
+
+      history.push('/')
+
+      expect(history.url).toBe('/')
+      expect(history.locale).toBe('ru')
+      expect(location.pathname + location.search).toBe('/ru')
+    })
   })
   it('state', () => {
     resetHistory('/')
