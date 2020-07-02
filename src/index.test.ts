@@ -1,4 +1,4 @@
-import History from '.'
+import History, {scroll} from '.'
 import {autorun} from 'mobx'
 
 let history = new History()
@@ -162,7 +162,7 @@ describe('mobx-history', () => {
   })
   describe('scroll', () => {
     it('simple', () => {
-      history.scroll(100)
+      scroll(100)
       expect(window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0).toBe(100)
       history.push('/scroll')
       expect(window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0).toBe(0)
@@ -181,7 +181,7 @@ describe('mobx-history', () => {
       })
     })
     it('same url', () => {
-      history.scroll(100)
+      scroll(100)
       let position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
       expect(position).toBe(100)
       history.push(history.url)
@@ -189,11 +189,11 @@ describe('mobx-history', () => {
       expect(position).toBe(0)
     })
     it('scrollTo fake element', () => {
-      history.scroll(100)
+      scroll(100)
       let position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
       expect(position).toBe(100)
 
-      history.scroll('#test')
+      scroll('#test')
 
       position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
       expect(position).toBe(0)

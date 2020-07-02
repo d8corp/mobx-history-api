@@ -41,6 +41,7 @@ declare class History {
     go(delta: number): this;
     replace(url: string, position?: number | string, scrollFirst?: boolean): this;
     push(url: string, position?: number | string, scrollFirst?: boolean): this;
+    /** @deprecated - please, use addition function `scroll` from the package */
     scroll(position: number | string, callback?: ScrollCallback): this;
     is(reg: string): boolean;
     get(reg: string, index?: number, defaultValue?: string): string;

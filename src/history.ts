@@ -1,4 +1,5 @@
 import {action, computed, observable, IComputedValue} from 'mobx'
+import scroll from './scroll'
 
 type Step = {
   url: string
@@ -119,7 +120,7 @@ class History {
       this.push(def, 0, scrollFirst)
     } else if (scrollFirst) {
       const {steps} = this.state
-      this.scroll(steps[steps.length - 1].position, () => window.history.back())
+      scroll(steps[steps.length - 1].position, () => window.history.back())
     } else {
       window.history.back()
     }
@@ -155,33 +156,9 @@ class History {
     }, this.locale, url, position, scrollFirst)
     return this
   }
+  /** @deprecated - please, use addition function `scroll` from the package */
   public scroll (position: number | string, callback?: ScrollCallback): this {
-    if (callback) {
-      let top = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-      this.scroll(position)
-      let count = 0
-      const interval = setInterval(() => {
-        const currentTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-        if (currentTop === top || count++ === 30) {
-          clearInterval(interval)
-          callback()
-        } else {
-          top = currentTop
-        }
-      }, 100)
-    } else if (typeof position === 'string') {
-      const element = document.querySelector(position)
-      if (element) {
-        element.scrollIntoView()
-      } else {
-        this.scroll(0)
-      }
-    } else if (position > -1) {
-      const top = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-      if (top !== position) {
-        document.documentElement.scrollTop = document.body.scrollTop = position
-      }
-    }
+    scroll(position, callback)
     return this
   }
   public is (reg: string): boolean {
@@ -222,10 +199,10 @@ class History {
       this.onChange(window.history.state)
     }
     if (scrollFirst) {
-      this.scroll(position, mainCallback)
+      scroll(position, mainCallback)
     } else {
       mainCallback()
-      this.scroll(position)
+      scroll(position)
     }
   }
 }

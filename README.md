@@ -121,20 +121,6 @@ The method returns the value of the provided `key` in the URL query.
 ```javascript
 history.search('key') // returns 'value' for url equals '?key=value'
 ```
-### scroll
-You can scroll the current page with `scroll` method of history.  
-`scroll(position: number | string, callback?: function): this`
-```javascript
-history.scroll(100)
-```
-If you wanna scroll the page to a defined element you can provide CSS selector to find the element and scroll to view it.
-```javascript
-history.scroll('#root')
-```
-When you use `scroll-behavior` equals `smooth` you can get callback when the scrolling finished.
-```javascript
-history.scroll(0, () => console.log('scrolling is finished'))
-```
 ### push
 You can push to history any URL and you be moved forward in the history.  
 `push(url: string, position: number | string = 0, scrollFirst = false): this`
@@ -252,6 +238,24 @@ Use 2 arguments to remove a key.
 import {setSearch} from 'mobx-history-api'
 
 setSearch('/test?key=value', 'key') // "/test"
+```
+### scroll
+You can scroll the current page with `scroll` function.  
+`scroll(position: number | string, callback?: function): this`
+```javascript
+import {scroll} from 'mobx-history-api'
+
+scroll(100)
+```
+If you wanna scroll the page to a defined element you can provide CSS selector to find the element and scroll to view it.
+```javascript
+import scroll from 'mobx-history-api/scroll'
+
+scroll('#root')
+```
+When you use `scroll-behavior` equals `smooth` you can get callback when the scrolling finished.
+```javascript
+scroll(0, () => console.log('scrolling is finished'))
 ```
 ## Example
 ```javascript

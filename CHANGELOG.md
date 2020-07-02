@@ -1,6 +1,9 @@
 # Changelog
 ## v1.1 [![07.06.2020](https://img.shields.io/date/1591536284)](https://github.com/d8corp/mobx-history-api/tree/v1.1)
 
+### v1.1.4 [![02.07.2020](https://img.shields.io/date/1593701867)](https://github.com/d8corp/mobx-history-api/tree/v1.1.4)
+- deprecated `scroll` method of history
+- added addition function `scroll`
 ### v1.1.3 [![11.06.2020](https://img.shields.io/date/1591880406)](https://github.com/d8corp/mobx-history-api/tree/v1.1.3)
 - improved locale calculation
 ### v1.1.2 [![11.06.2020](https://img.shields.io/date/1591879290)](https://github.com/d8corp/mobx-history-api/tree/v1.1.2)
